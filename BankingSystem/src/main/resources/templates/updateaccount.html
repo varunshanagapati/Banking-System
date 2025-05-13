@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Account Page</title>
+	<style>
+		input,button{
+			width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		label{
+			font-size: 18px;
+			margin-left: 5px;
+		}
+		
+		.content{
+			
+			align-items: center;
+			border: 2px solid rgb(192, 192, 192);
+			background-color: aqua;
+			border-radius: 20px;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			max-width: fit-content;
+			margin: 100px auto 0 auto;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<form th:action="@{/admindashboard/update/{acNumber}(acNumber=${updateAccount.accountNumber})}" method="post">
+			
+		     <h2>Update Account</h2>
+			 <label>Account Number</label>
+  			 <br> 
+  			 <input type="text" placeholder="Account Number"name="accountNumber" th:value="${updateAccount.accountNumber}" required readonly>
+  			 <br>
+			 <label>Name</label>
+			 <br> 
+			 <input type="text" placeholder="Name"name="customerName" th:value="${updateAccount.name}" required>
+			 <br>
+			 <label>Email</label>
+  			 <br> 
+  			 <input type="text" placeholder="Email"name="customerEmail" th:value="${updateAccount.email}"required>
+  			 <br>
+			 <label>Phone Number</label>
+			 <br>
+			 <input type="text" placeholder="Phone Number" name="customerPhoneNumber" th:value="${updateAccount.phoneNumber}" required>
+			 <br>
+			 <label>Account Type</label>
+ 			 <br>
+ 			 <input type="text" placeholder="Account Type" name="customerAcType" th:value="${updateAccount.AcType}" required>
+ 			 <br>
+			 <label>Account Status</label>
+	 		 <br> 
+	 		 <select name="acStatus" id="AcStatus">
+	 		     <option value="Active">Active</option>
+	 		     <option value="Frozen">Frozen</option>
+	 		 </select>
+			 <br>
+			 <label>Balance</label>
+ 			 <br>
+ 			 <input type="text" placeholder="Balance" name="customerBalance" th:value="${updateAccount.balance}" required readonly>
+ 			 <br>
+			 <button type="submit" style="margin: 10px 100px;width: fit-content;">Update Account</button>
+		
+		 </form>
+	</div>
+</body>
+</html>

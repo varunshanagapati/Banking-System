@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Dashboard</title>
+	<style>
+		input,button{
+			width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		label{
+			font-size: 18px;
+			margin-left: 5px;
+		}
+		
+		.content{
+			
+			align-items: center;
+			border: 2px solid rgb(192, 192, 192);
+			background-color: rgb(255, 255, 255);
+			border-radius: 20px;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			max-width: fit-content;
+			margin: 100px auto 0 auto;
+
+		}
+		a{
+			color: rgb(0, 0, 0);
+			background-color: rgb(222, 228, 228);
+			padding: 10px;
+			border-radius: 10px;
+			font-size: 20px;
+			text-decoration: none;
+		}
+		
+	</style>
+</head>
+<body>
+	
+	<div style="display: flex; height: auto;">
+		
+	  <div style="flex: 1; background-color: lightblue;">
+		<h1 th:text="'Welcome, ' + ${customer.name}">Hello, User</h1>
+			<div class="customerDetails">
+				<table>
+					<tr>
+						<td>Account Number : </td>
+						<td th:text="${customer.accountNumber}" name="customerAcNumber">Customer Account Number</td>
+					</tr>
+					<tr>
+						<td>Name : </td>
+						<td th:text="${customer.name}" name="customerName">Customer Name</td>
+					</tr>
+					<tr>
+						<td>Email : </td>
+						<td th:text="${customer.email}" name="customerEmail">Customer Email</td>
+					</tr>
+					<tr>
+						<td>Account Type : </td>
+						<td th:text="${customer.AcType}" name="customerAcType">Customer Account Type</td>
+					</tr>
+					<tr>
+						<td>Phone Number : </td>
+						<td th:text="${customer.phoneNumber}" name="customerPhoneNumber">Customer Phone Number</td>
+					</tr>
+					<tr>
+						<td>Status : </td>
+						<td th:text="${customer.status}" name="customerStatus">Customer Status</td>
+					</tr>
+					<tr>
+						<td>Balance : </td>
+						<td th:text="${customer.balance}" name="customerBalance">Customer Balance</td>
+					</tr>
+				</table>
+			
+				
+			</div>
+			<br>
+			<a href="/customerlogout">Logout</a>
+			
+			<br>
+			<br>
+			<div class="operations">
+				<table>
+					<tr>
+						<td><label>Deposit : </label></td>
+						<td>
+							<form action="/customerdashboard/deposit" method="post">
+								<input style="width: fit-content;" type="number" step="any" name="depositAmount" placeholder="Deposit Amount" required>
+						
+								<button style="width: fit-content;" type="submit">Deposit</button>
+							</form>
+						</td>
+						<td>
+							<p th:if="${depositStatus}" th:text="${depositStatus}">Deposit Status</p>
+						</td>
+					</tr>
+					<tr>
+						<td><label>Withdraw : </label></td>
+						<td>
+							<form action="/customerdashboard/withdraw" method="post">
+							<input style="width: fit-content;" type="number" step="any" name="withdrawAmount" placeholder="Withdraw Amount" required>
+						
+							
+								<button style="width: fit-content;" type="submit">Withdraw</button>
+							</form>
+						</td>
+						<td>
+							<p th:if="${withdrawStatus}" th:text="${withdrawStatus}">Withdraw Status</p>
+						</td>
+					</tr>						
+				</table>
+				
+				<br>
+				
+			
+				
+				<form action="/customerdashboard/transfer" method="post">
+					<table>
+						<tr>
+							<td colspan="3" style="text-align: center; vertical-align: middle;"><label><strong> Transfer Amount </strong></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label> From Account : </label> 
+							</td>
+							<td>
+								<input style="width: fit-content;" type="number" step="any" name="fromAccount" th:value="${customer.accountNumber}" placeholder="From Account" readonly required>
+							</td>
+							<td rowspan="3">
+								
+								<button style="width: fit-content;" type="submit">Transfer</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label> To Account : </label> 
+							</td>
+							<td>
+								<input style="width: fit-content;" type="number" step="any" name="toAccount" placeholder="To Account" required>						
+							</td>
+							
+						</tr>
+						<tr>
+							<td>
+								<label>Amount : </label>
+							</td>
+							<td>
+								<input style="width: fit-content;" type="number" step="any" name="transferAmount" placeholder="Amount" required>
+
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="text-align: center; vertical-align: middle;">
+								<p th:if="${transferstatus}" th:text="${transferstatus}">Transfer Status</p>
+							</td>
+						</tr>
+					</table>
+					
+							 
+				</form>
+			</div>
+		
+		</div>
+		
+		<div style="flex: 1; background-color: lightgreen;">
+			Transactional Details:
+			<table border="1">
+				<tr>
+					<th>s.no</th>
+					<th>Date</th>
+					<th>Account Number</th>
+					<th>Transaction type</th>
+					<th>From Account</th>
+					<th>To Account</th>
+					<th>Amount</th>
+				</tr>
+				
+				<tr th:each="txn, iterStat : ${transactions}">
+				        <td th:text="${iterStat.index + 1}"></td>
+				        <td th:text="${txn.date}"></td>
+				        <td th:text="${txn.accountNumber}"></td>
+				        <td th:text="${txn.transactionType}"></td>
+				        <td th:text="${txn.fromAccount}"></td>
+				        <td th:text="${txn.toAccount}"></td>
+				        <td th:text="${txn.amount}"></td>
+				    </tr>
+				
+			</table>
+			
+			
+		</div>
+		
+	</div>
+</body>
+</html>

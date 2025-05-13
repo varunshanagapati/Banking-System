@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index Page</title>
+	<style>
+		a{
+			color: white;
+			background-color: brown;
+			padding: 10px;
+			border-radius: 10px;
+			font-size: 20px;
+			text-decoration: none;
+		}
+		.content{
+			
+			align-items: center;
+			border: 2px solid rgb(192, 192, 192);
+			background-color: aqua;
+			border-radius: 20px;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			max-width: fit-content;
+			margin: 200px auto 0 auto;
+
+		}
+	</style>
+</head>
+<body>
+	<div th:if="${param.logintip}">
+		<p style="color:green;">Please login to continue</p>
+	</div>
+	<div th:if="${param.signup}">
+	      <p style="color:green;">You have been Signed up successfully, Please login.</p>
+	 </div>
+	 <div th:if="${param.logout}">
+	      <p style="color:green;">You have been logged out successfully.</p>
+	 </div>
+	<div class="content">
+	     <h1>Welcome to Banking System</h1>
+		<a href="/adminlogin">Admin Login/Register</a>
+		<br>
+		<a href="/customerlogin">Customer Login/Register</a>
+	</div>
+</body>
+</html>

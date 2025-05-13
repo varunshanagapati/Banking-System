@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+	<style>
+		input,button{
+			width: fit-content;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+			font-size: 12px;
+			cursor: pointer;
+		}
+		label{
+			font-size: 18px;
+			margin-left: 5px;
+		}
+		as{
+			color: rgb(0, 0, 0);
+			background-color: rgb(222, 228, 228);
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 20px;
+			text-decoration: none;
+		}
+	</style>
+</head>
+<body>
+	<div style="display: flex; height: auto;">
+			
+		  <div style="flex: 1; background-color: lightblue;">
+			<h1 th:text="'Welcome, ' + ${admin.name}">Hello, User</h1>
+				<div class="adminDetails">
+					<table>
+						<tr>
+							<td> Login Id : </td>
+							<td th:text="${admin.loginId}" name="loginId">Admin Login Id</td>
+						</tr>
+						<tr>
+							<td>Name : </td>
+							<td th:text="${admin.name}" name="adminName">Admin Name</td>
+						</tr>
+						<tr>
+							<td>Email : </td>
+							<td th:text="${admin.email}" name="adminEmail">Admin Email</td>
+						</tr>
+						
+					</table>
+				
+					
+				</div>
+				<br>
+				<a href="/adminlogout"><button><strong>Logout</strong></button></a>
+				
+				<br>
+				<p th:if="${status}" th:text="${status}">Status</p>
+				<br>
+				<div class="accountslist">
+					Accounts Details:
+					<table border="1">
+						<tr>
+							<th>s.no</th>
+							<th>Account Number</th>
+							<th>Name</th>
+							<th>Account Type</th>
+							<th>Phone Number</th>
+							<th>Balance</th>
+							<th>Status</th>
+							<th>Operations</th>
+						</tr>
+										
+						<tr th:each="ac, iterStat : ${accounts}">
+					        <td th:text="${iterStat.index + 1}"></td>
+					        <td th:text="${ac.accountNumber}"></td>
+					        <td th:text="${ac.name}"></td>
+					        <td th:text="${ac.AcType}"></td>
+					        <td th:text="${ac.phoneNumber}"></td>
+					        <td th:text="${ac.balance}"></td>
+					        <td th:text="${ac.status}"></td>
+							<td>
+							<a th:href="@{/admindashboard/update/{id}(id=${ac.accountNumber})}"><button><strong>Update</strong></button></a>
+							<a th:href="@{/admindashboard/delete/{id}(id=${ac.accountNumber})}"><button style="background-color: rgb(255, 128, 128);"><strong>Delete</strong></button></a>
+							<a th:href="@{/admindashboard/transactiondetails/{id}(id=${ac.accountNumber})}"><button style="background-color: rgb(128, 255, 0);"><strong>Transaction Details</strong></button></a>
+														
+							</td>
+						</tr>
+										
+					</table>
+					
+					<br>
+				
+				</div>
+			
+			</div>
+			
+			<div style="flex: 1; background-color: lightgreen;">
+				Transactional Details:
+				<table border="1">
+					<tr>
+						<th>s.no</th>
+						<th>Date</th>
+						<th>Account Number</th>
+						<th>Transaction type</th>
+						<th>From Account</th>
+						<th>To Account</th>
+						<th>Amount</th>
+					</tr>
+					
+					<tr th:each="txn, iterStat : ${transactions}">
+					        <td th:text="${iterStat.index + 1}"></td>
+					        <td th:text="${txn.date}"></td>
+					        <td th:text="${txn.accountNumber}"></td>
+					        <td th:text="${txn.transactionType}"></td>
+					        <td th:text="${txn.fromAccount}"></td>
+					        <td th:text="${txn.toAccount}"></td>
+					        <td th:text="${txn.amount}"></td>
+					    </tr>
+					
+				</table>
+				
+				
+			</div>
+			
+		</div>
+</body>
+</html>

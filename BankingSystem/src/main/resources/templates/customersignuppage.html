@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Signup Page</title>
+	<style>
+		input,button{
+			width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+			font-size: 18px;
+			cursor: pointer;
+		}
+		label{
+			font-size: 18px;
+			margin-left: 5px;
+		}
+		
+		.content{
+			
+			align-items: center;
+			border: 2px solid rgb(192, 192, 192);
+			background-color: aqua;
+			border-radius: 20px;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			max-width: fit-content;
+			margin: 100px auto 0 auto;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<form action="customersignup" method="post">
+			
+		     <h2>Customer Sign up</h2>
+			 <label>Name</label>
+			 <br> 
+			 <input type="text" placeholder="Name"name="customerSignupName" required>
+			 <br>
+			 <label>Account Number</label>
+ 			 <br> 
+ 			 <input type="text" placeholder="Account Number"name="customerSignupId" required>
+ 			 <br>
+			 <label>Email</label>
+  			 <br> 
+  			 <input type="text" placeholder="Email"name="customerSignupEmail" required>
+  			 <br>
+			 <label>Account Type</label>
+			 <br> 
+			 <select name="accountType" id="AcType">
+			     <option value="savings">Savings</option>
+			     <option value="current">Current</option>
+			 </select>
+			 <br>
+			 <label>Phone Number</label>
+			 <br> 
+			 <input type="text" placeholder="Phone Number"name="customerPhoneNumber" required>
+			 <br>
+			 <label>Password</label>
+			 <br>
+			 <input type="password" placeholder="password" name="customerSignupPassword" required>
+			 <br>
+			 <button type="submit" style="margin: 10px 100px;width: fit-content;">Signup</button>
+		
+		 </form>
+	</div>
+</body>
+</html>
